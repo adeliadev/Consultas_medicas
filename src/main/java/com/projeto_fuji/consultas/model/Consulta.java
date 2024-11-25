@@ -18,4 +18,8 @@ public class Consulta {
     private LocalDateTime dataConsulta;
 
     private String status;
+
+    @ManyToOne
+    @JoinColumn(name = "paciente_id")
+    private Paciente paciente;
 }
