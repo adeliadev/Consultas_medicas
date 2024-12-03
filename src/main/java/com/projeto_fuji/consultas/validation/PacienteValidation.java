@@ -11,7 +11,7 @@ public class PacienteValidation implements ConstraintValidator<Paciente, String>
         if (nomePaciente == null || nomePaciente.isEmpty()) {
             return true;
         }
-        boolean isValid = PacienteBase.isDiretorValido(nomePaciente);
+        boolean isValid = PacienteBase.isPacienteValido(nomePaciente);
         if (!isValid) {
             context.disableDefaultConstraintViolation();
             context.buildConstraintViolationWithTemplate(

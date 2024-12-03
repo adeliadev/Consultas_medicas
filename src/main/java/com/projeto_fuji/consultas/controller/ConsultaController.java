@@ -1,6 +1,10 @@
 package com.projeto_fuji.consultas.controller;
 
+import com.projeto_fuji.consultas.exception.ConsultaNotFoundException;
+import com.projeto_fuji.consultas.exception.MedicoNotFoundException;
 import com.projeto_fuji.consultas.model.Consulta;
+import com.projeto_fuji.consultas.model.Medico;
+import com.projeto_fuji.consultas.model.Paciente;
 import com.projeto_fuji.consultas.service.ConsultaService;
 import com.projeto_fuji.consultas.service.EmailService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -8,6 +12,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -53,8 +59,15 @@ public class ConsultaController {
             @ApiResponse(responseCode = "400", description = "Erro ao atualizar dados da consulta")
     })
     @PutMapping("atualizar/{id}")
-    public Consulta atualizarConsulta(@PathVariable Long id, @RequestBody Consulta consulta) {
-        return consultaService.atualizarConsulta(id, consulta);
+    public ResponseEntity<Consulta> atualizarConsulta(@PathVariable Long id, @RequestBody Consulta consultaDetalhes) {
+        try {
+            Consulta consultaAtualizado = consultaService.atualizarConsulta(id, consultaDetalhes);
+            return ResponseEntity.ok(consultaAtualizado);
+        } catch (ConsultaNotFoundException e) {
+            throw e;
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
 

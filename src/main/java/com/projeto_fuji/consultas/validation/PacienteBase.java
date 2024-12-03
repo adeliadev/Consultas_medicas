@@ -26,7 +26,7 @@ public class PacienteBase {
             "Andrucha Waddington", "José Mojica Marins", "Eduardo Coutinho", "Aluizio Abranches", "Afonso Poyart"
     );
 
-    public static boolean isDiretorValido(String nomePaciente) {
-        return PACIENTES.stream().anyMatch(diretor -> diretor.equalsIgnoreCase(nomePaciente));
+    public static boolean isPacienteValido(String nomePaciente) {
+        return PACIENTES.stream().anyMatch(paciente -> paciente.equalsIgnoreCase(nomePaciente));
     }
 }
